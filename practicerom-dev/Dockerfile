@@ -2,7 +2,10 @@ FROM ubuntu:24.04
 
 RUN apt-get update
 RUN apt-get install -y curl git make sudo
-RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/PracticeROM/packages/HEAD/scripts/install-debian_amd64.sh)"
+RUN curl -O https://practicerom.com/public/packages/debian/dists/stable/practicerom-repository_latest_$(dpkg --print-architecture).deb
+RUN dpkg -i practicerom-repository_latest_$(dpkg --print-architecture).deb
+RUN rm practicerom-repository_latest_$(dpkg --print-architecture).deb
+RUN apt-get update
 RUN apt-get install -y practicerom-dev
 
 RUN groupadd -g 1001 practicerom-dev
